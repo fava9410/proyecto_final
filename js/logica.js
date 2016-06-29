@@ -209,24 +209,25 @@ $(document).ready(function(){
         }
         intercambio();
         pintar_procesos();  
-        if(ejecutando != 0)
+        if(ejecutando != 0){
             ejecutando[0].rafaga--;
+            $("#planificador").css({"background-color":"red"});
+        } else
+            $("#planificador").css({"background-color":"green"});
         if(bloqueados != 0){
             sacarbloqueados();
         }
 
-
-        console.log("ejecutando");
-        console.log(ejecutando[0]);
-        console.log("q1")
+        $("#cola1").empty();
         for(var i=0; i< q1.length; i++)
-            console.log(q1[i]);
-        console.log("q2")
-        for(var i=0; i< q2.length; i++)
-            console.log(q2[i]);
-        console.log("q3")
-        for(var i=0; i< q3.length; i++)
-            console.log(q3[i]);
+            $("#cola1").append("<li>"+q1[i].proceso+"</li>");
+        $("#cola2").empty();
+        for(var i=0; i< q2.length; i++)        
+            $("#cola2").append("<li>"+q2[i].proceso+"</li>");        
+        $("#cola3").empty();
+        for(var i=0; i< q3.length; i++)        
+            $("#cola3").append("<li>"+q3[i].proceso+"</li>");        
+
         contador++;
     }
 
