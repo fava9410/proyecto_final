@@ -9,10 +9,26 @@
 </head>
 	<body>
 		<center><h1>Procesos</h1></center>		
-		<center><div id="tabla">
+		<div id="tabla">
 			<center><h3>Tabla de Procesos</h3></center>			
-		</div></center>	
-		<center><div id="gantt" value="hidden">
+		</div>
+		<br>
+		<div id="planificador" style="background-color: green; width: 120px; float: left; margin: 15px;">
+			<center><p>Planificador</p></center>
+		</div>
+		<div style="width: 150px; float: left;">
+			<p>Cola 1</p>
+			<ul id="cola1"></ul>
+		</div>
+		<div style="width: 150px; float: left;">
+			<p>Cola 2</p>
+			<ul id="cola2"></ul>
+		</div>
+		<div style="width: 150px; float: left;">
+			<p>Cola 3</p>
+			<ul id="cola3"></ul>
+		</div>
+		<div id="gantt" value="hidden" style="float: left;">
 			<center><h3>Gantt</h3></center>
 			<button id="empezar">Empezar</button>
 			<button id="agregar">Agregar proceso</button>
@@ -20,7 +36,7 @@
 			<button id="parar">Bloquear proceso</button>
 			<br>
 			<br>
-		</div></center>
+		</div>
 		<div width="700" height="700">
 			<canvas id="lienzo" width="5000" height="700">
 				No soportado.

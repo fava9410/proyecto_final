@@ -34,7 +34,7 @@ $(document).ready(function(){
 
     $("#agregar").click(function(){   
         contadorProcesos++;     
-        crearProceso(0);        
+        crearProceso(0);
         pintar();
         pintar_numeros();
     });
@@ -49,24 +49,6 @@ $(document).ready(function(){
 
     setInterval(proceso, 1000);
 
-    function expulsar(proceso){
-        if(ejecutando != 0 && proceso.cola < ejecutando[0].cola && ejecutando[0].rafaga != 0){
-            ejecutando[0].finalizacion = contador;            
-            vercolas(0);
-            if(ejecutando[0].cola == 2){
-                q2.push(ejecutando.shift())                
-                q2.sort(sortByRafaga);
-            }
-            else if(ejecutando[0].cola == 3)
-                q3.push(ejecutando.shift())
-            if(proceso.cola == 1)
-                ejecutando.push(q1.shift())
-            else if(proceso.cola == 2)
-                ejecutando.push(q2.shift())
-            vercolas(0);
-        }
-    }
-
     function ponerceros(){
         ejecutando[0].comienzo = 0;
         ejecutando[0].finalizacion = 0;
@@ -80,22 +62,18 @@ $(document).ready(function(){
         }
     }
     function sacarbloqueados(){
-        var proceso;
         for(var i=0; i<bloqueados.length; i++){
             if(contador == bloqueados[i].llegada){
-                proceso = bloqueados.shift();
-                if(proceso.cola ==1)
-                    q1.push(proceso);
-                else if(proceso.cola ==2)
-                    q2.push(proceso);
-                else if(proceso.cola ==3)
-                    q3.push(proceso);
+                if(bloqueados[i].cola ==1)
+                    q1.push(bloqueados.shift());
+                else if(bloqueados[i].cola ==2)
+                    q2.push(bloqueados.shift());
+                else if(bloqueados[i].cola ==3)
+                    q3.push(bloqueados.shift());
             }
         }
+        //llenarDatos();
         vercolas(0);
-        if(proceso)
-            expulsar(proceso);
-        //pintar_numeros();
     }
 
     function crearProceso(opcion){
@@ -124,7 +102,6 @@ $(document).ready(function(){
         colores.push("white");
 
         vercolas(0);
-        expulsar(proceso);        
     }
 
     function sortByRafaga(x,y) {
@@ -232,24 +209,25 @@ $(document).ready(function(){
         }
         intercambio();
         pintar_procesos();  
-        if(ejecutando != 0)
+        if(ejecutando != 0){
             ejecutando[0].rafaga--;
+            $("#planificador").css({"background-color":"red"});
+        } else
+            $("#planificador").css({"background-color":"green"});
         if(bloqueados != 0){
             sacarbloqueados();
         }
 
-
-        console.log("ejecutando");
-        console.log(ejecutando[0]);
-        console.log("q1")
+        $("#cola1").empty();
         for(var i=0; i< q1.length; i++)
-            console.log(q1[i]);
-        console.log("q2")
-        for(var i=0; i< q2.length; i++)
-            console.log(q2[i]);
-        console.log("q3")
-        for(var i=0; i< q3.length; i++)
-            console.log(q3[i]);
+            $("#cola1").append("<li>"+q1[i].proceso+"</li>");
+        $("#cola2").empty();
+        for(var i=0; i< q2.length; i++)        
+            $("#cola2").append("<li>"+q2[i].proceso+"</li>");        
+        $("#cola3").empty();
+        for(var i=0; i< q3.length; i++)        
+            $("#cola3").append("<li>"+q3[i].proceso+"</li>");        
+
         contador++;
     }
 
